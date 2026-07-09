@@ -1,0 +1,39 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="900" x2="1600" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617"/>
+      <stop offset="0.6" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <radialGradient id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(760 320) rotate(10) scale(980 560)">
+      <stop stop-color="#A855F7" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#A855F7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(240 560) rotate(0) scale(920 520)">
+      <stop stop-color="#06B6D4" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#06B6D4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <rect width="1600" height="900" fill="url(#a)"/>
+  <rect width="1600" height="900" fill="url(#b)"/>
+  <g opacity="0.10">
+    <path d="M-40 120 L1640 120" stroke="white" stroke-width="1"/>
+    <path d="M-40 220 L1640 220" stroke="white" stroke-width="1"/>
+    <path d="M-40 320 L1640 320" stroke="white" stroke-width="1"/>
+    <path d="M-40 420 L1640 420" stroke="white" stroke-width="1"/>
+    <path d="M-40 520 L1640 520" stroke="white" stroke-width="1"/>
+    <path d="M-40 620 L1640 620" stroke="white" stroke-width="1"/>
+    <path d="M-40 720 L1640 720" stroke="white" stroke-width="1"/>
+  </g>
+  <g opacity="0.10">
+    <path d="M220 -40 L220 940" stroke="white" stroke-width="1"/>
+    <path d="M420 -40 L420 940" stroke="white" stroke-width="1"/>
+    <path d="M620 -40 L620 940" stroke="white" stroke-width="1"/>
+    <path d="M820 -40 L820 940" stroke="white" stroke-width="1"/>
+    <path d="M1020 -40 L1020 940" stroke="white" stroke-width="1"/>
+    <path d="M1220 -40 L1220 940" stroke="white" stroke-width="1"/>
+    <path d="M1420 -40 L1420 940" stroke="white" stroke-width="1"/>
+  </g>
+</svg>
+
