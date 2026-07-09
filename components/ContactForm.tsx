@@ -2,8 +2,21 @@
 
 import { useMemo, useState } from "react";
 
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Checkbox as ShadcnCheckbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { siteContent } from "@/content/siteContent";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
 
 type FormState = {
   fullName: string;
@@ -72,7 +85,7 @@ export function ContactForm({ className }: { className?: string }) {
         <div className="mt-6">
           <a
             href={`mailto:${siteContent.site.primaryEmail}`}
-            className="inline-flex h-11 items-center justify-center bg-slate-950 px-6 text-sm font-semibold text-white hover:bg-slate-900"
+            className={cn(buttonVariants({ size: "lg" }), "h-11")}
           >
             Email {siteContent.site.primaryEmail}
           </a>
@@ -163,12 +176,9 @@ export function ContactForm({ className }: { className?: string }) {
         <p className="text-xs leading-5 text-slate-500">
           All initial inquiries are treated with absolute confidentiality.
         </p>
-        <button
-          type="submit"
-          className="inline-flex h-11 items-center justify-center bg-slate-950 px-6 text-sm font-semibold text-white hover:bg-slate-900"
-        >
+        <Button type="submit" size="lg" className="h-11">
           Submit inquiry
-        </button>
+        </Button>
       </div>
     </form>
   );
@@ -187,24 +197,29 @@ function Field({
   error?: string;
   type?: string;
 }) {
+  const id = `field-${label.replace(/\\s+/g, "-").toLowerCase()}`;
   return (
-    <label className="block">
+    <div className="block">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-slate-950">{label}</span>
+        <Label htmlFor={id} className="text-sm font-semibold text-slate-950">
+          {label}
+        </Label>
         {error ? <span className="text-xs font-semibold text-rose-600">{error}</span> : null}
       </div>
-      <input
+      <Input
+        id={id}
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "mt-2 h-11 w-full border bg-white px-4 text-sm text-slate-950 outline-none transition",
+          "mt-2 h-11 w-full bg-white px-4 text-sm text-slate-950",
           error
             ? "border-rose-300 focus:border-rose-400 focus:ring-2 focus:ring-rose-100"
             : "border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100",
         )}
+        aria-invalid={error ? true : undefined}
       />
-    </label>
+    </div>
   );
 }
 
@@ -223,29 +238,38 @@ function SelectField({
   error?: string;
   className?: string;
 }) {
+  const id = `field-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <label className={cn("block", className)}>
+    <div className={cn("block", className)}>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-slate-950">{label}</span>
+        <Label htmlFor={id} className="text-sm font-semibold text-slate-950">
+          {label}
+        </Label>
         {error ? <span className="text-xs font-semibold text-rose-600">{error}</span> : null}
       </div>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={cn(
-          "mt-2 h-11 w-full border bg-white px-4 text-sm text-slate-950 outline-none transition",
-          error
-            ? "border-rose-300 focus:border-rose-400 focus:ring-2 focus:ring-rose-100"
-            : "border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100",
-        )}
-      >
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-    </label>
+      <div className="mt-2">
+        <Select value={value} onValueChange={(v) => onChange(v ?? "")}>
+          <SelectTrigger
+            id={id}
+            className={cn(
+              "h-11 w-full px-4",
+              error ? "border-rose-300 focus-visible:border-rose-400 focus-visible:ring-rose-100" : "",
+            )}
+          >
+            <SelectValue placeholder="Select an inquiry type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {options.map((o) => (
+                <SelectItem key={o} value={o}>
+                  {o}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
   );
 }
 
@@ -262,24 +286,29 @@ function TextAreaField({
   error?: string;
   className?: string;
 }) {
+  const id = `field-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <label className={cn("block", className)}>
+    <div className={cn("block", className)}>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-slate-950">{label}</span>
+        <Label htmlFor={id} className="text-sm font-semibold text-slate-950">
+          {label}
+        </Label>
         {error ? <span className="text-xs font-semibold text-rose-600">{error}</span> : null}
       </div>
-      <textarea
+      <Textarea
+        id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={6}
         className={cn(
-          "mt-2 w-full border bg-white px-4 py-3 text-sm text-slate-950 outline-none transition",
+          "mt-2 w-full bg-white px-4 py-3 text-sm text-slate-950",
           error
             ? "border-rose-300 focus:border-rose-400 focus:ring-2 focus:ring-rose-100"
             : "border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100",
         )}
+        aria-invalid={error ? true : undefined}
       />
-    </label>
+    </div>
   );
 }
 
@@ -292,16 +321,19 @@ function Checkbox({
   onChange: (next: boolean) => void;
   label: string;
 }) {
+  const id = `field-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
-    <label className="flex cursor-pointer items-start gap-3 border border-slate-200 bg-slate-50 px-4 py-3">
-      <input
-        type="checkbox"
+    <div className="flex items-start gap-3 border border-slate-200 bg-slate-50 px-4 py-3">
+      <ShadcnCheckbox
+        id={id}
         checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-        className="mt-0.5 h-4 w-4 border-slate-300 text-slate-950 focus:ring-slate-200"
+        onCheckedChange={(v) => onChange(v === true)}
+        className="mt-1"
       />
-      <span className="text-sm leading-6 text-slate-700">{label}</span>
-    </label>
+      <Label htmlFor={id} className="cursor-pointer text-sm leading-6 text-slate-700">
+        {label}
+      </Label>
+    </div>
   );
 }
 

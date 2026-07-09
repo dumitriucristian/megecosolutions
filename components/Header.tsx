@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { siteContent } from "@/content/siteContent";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 export function Header() {
   const pathname = usePathname();
@@ -34,10 +35,8 @@ export function Header() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium transition-colors",
-                  active
-                    ? "bg-slate-950 text-white"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
+                  buttonVariants({ variant: active ? "default" : "ghost", size: "sm" }),
+                  active ? "" : "text-slate-700",
                 )}
               >
                 {item.label}
@@ -46,7 +45,7 @@ export function Header() {
           })}
           <Link
             href="/contact"
-            className="ml-2 inline-flex h-10 items-center justify-center bg-slate-950 px-5 text-sm font-semibold text-white hover:bg-slate-900"
+            className={cn(buttonVariants({ size: "sm" }), "ml-2")}
           >
             Consult
           </Link>
@@ -54,7 +53,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex h-10 items-center justify-center border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-950 hover:bg-slate-50 md:hidden"
+          className={cn(buttonVariants({ variant: "outline", size: "sm" }), "md:hidden")}
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
@@ -76,8 +75,8 @@ export function Header() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "px-4 py-3 text-sm font-semibold",
-                  active ? "bg-slate-950 text-white" : "text-slate-800 hover:bg-slate-100",
+                  buttonVariants({ variant: active ? "default" : "ghost" }),
+                  "h-11 justify-start px-4",
                 )}
                 onClick={() => setOpen(false)}
               >
@@ -87,7 +86,7 @@ export function Header() {
           })}
           <Link
             href="/contact"
-            className="mt-2 inline-flex h-11 items-center justify-center bg-slate-950 px-5 text-sm font-semibold text-white hover:bg-slate-900"
+            className={cn(buttonVariants(), "mt-2 h-11")}
             onClick={() => setOpen(false)}
           >
             Schedule a consultation
