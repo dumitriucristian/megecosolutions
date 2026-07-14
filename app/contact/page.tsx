@@ -46,18 +46,6 @@ export default function ContactPage() {
                   {siteContent.site.primaryEmail}
                 </a>
               </div>
-
-              <div className="mt-6">
-                <div className="text-xs font-semibold text-slate-500">Partner</div>
-                <a
-                  href={siteContent.site.partner.applicationsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-slate-50"
-                >
-                  View WPowertech applications
-                </a>
-              </div>
             </aside>
           </div>
         </Container>
