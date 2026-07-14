@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 
 import { Container } from "@/components/Container";
+import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
 import { siteContent } from "@/content/siteContent";
+import { pageHeroImages } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Investment Model",
@@ -15,16 +17,14 @@ export default function InvestmentModelPage() {
 
   return (
     <>
-      <Section tone="light" className="border-b border-slate-200">
-        <Container className="py-16 sm:py-20">
-          <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-            {investmentModel.title}
-          </h1>
-          <p className="mt-6 max-w-3xl text-pretty leading-7 text-slate-600">
-            {investmentModel.body}
-          </p>
-        </Container>
-      </Section>
+      <PageHero image={pageHeroImages.investmentModel.src} imageAlt={pageHeroImages.investmentModel.alt}>
+        <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          {investmentModel.title}
+        </h1>
+        <p className="mt-6 max-w-3xl text-pretty leading-7 text-white/75">
+          {investmentModel.body}
+        </p>
+      </PageHero>
 
       <Section tone="tint">
         <Container className="py-14 sm:py-18">
@@ -52,4 +52,3 @@ export default function InvestmentModelPage() {
     </>
   );
 }
-

@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 
 import { Container } from "@/components/Container";
 import { GalleryGrid } from "@/components/GalleryGrid";
+import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
 import { UseCaseCards } from "@/components/UseCaseCards";
 import { siteContent } from "@/content/siteContent";
-import { applicationsGallery } from "@/lib/media";
+import { applicationsGallery, pageHeroImages } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Applications (B2G)",
@@ -18,20 +19,18 @@ export default function ApplicationsPage() {
 
   return (
     <>
-      <Section tone="dark">
-        <Container className="py-16 sm:py-20">
-          <h1 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            {applications.title}
-          </h1>
-          <p className="mt-6 max-w-3xl text-pretty leading-7 text-white/75">
-            {applications.intro}
-          </p>
-        </Container>
-      </Section>
+      <PageHero image={pageHeroImages.applications.src} imageAlt={pageHeroImages.applications.alt}>
+        <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          {applications.title}
+        </h1>
+        <p className="mt-6 max-w-3xl text-pretty leading-7 text-white/75">
+          {applications.intro}
+        </p>
+      </PageHero>
 
       <Section tone="dark">
-        <Container className="pb-6">
-          <GalleryGrid items={applicationsGallery} columns={2} />
+        <Container className="pb-6 pt-12">
+          <GalleryGrid items={applicationsGallery} columns={1} />
         </Container>
         <Container className="py-10 sm:py-14">
           <UseCaseCards items={applications.useCases} />
@@ -50,20 +49,8 @@ export default function ApplicationsPage() {
               </li>
             ))}
           </ul>
-
-          <div className="mt-10">
-            <a
-              href={applications.source.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-11 items-center justify-center bg-white px-6 text-sm font-semibold text-slate-950 hover:bg-white/90"
-            >
-              {applications.source.label}
-            </a>
-          </div>
         </Container>
       </Section>
     </>
   );
 }
-

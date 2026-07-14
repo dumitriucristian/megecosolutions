@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/ContactForm";
 import { Container } from "@/components/Container";
+import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
 import { siteContent } from "@/content/siteContent";
+import { pageHeroImages } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -15,18 +17,16 @@ export default function ContactPage() {
 
   return (
     <>
-      <Section tone="light" className="border-b border-slate-200">
-        <Container className="py-16 sm:py-20">
-          <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-            {contact.title}
-          </h1>
-          <div className="mt-6 max-w-3xl space-y-4 text-pretty leading-7 text-slate-600">
-            {contact.body.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-        </Container>
-      </Section>
+      <PageHero image={pageHeroImages.contact.src} imageAlt={pageHeroImages.contact.alt}>
+        <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          {contact.title}
+        </h1>
+        <div className="mt-6 max-w-3xl space-y-4 text-pretty leading-7 text-white/75">
+          {contact.body.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
+      </PageHero>
 
       <Section tone="tint">
         <Container className="py-14 sm:py-18">
@@ -65,4 +65,3 @@ export default function ContactPage() {
     </>
   );
 }
-

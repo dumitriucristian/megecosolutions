@@ -57,9 +57,9 @@ export const siteContent = {
     ],
     partner: {
       title: "Main Technology Partner",
-      body: "Our primary technology partner is WPowertech, with applications designed for regulatory compliance, risk mitigation, and verifiable recovery targets.",
-      linkLabel: "View partner applications",
-      linkHref: "https://wpowertech.ro/applications",
+      bodyBefore: "Our primary technology partner is ",
+      bodyAfter:
+        ", with applications designed for regulatory compliance, risk mitigation, and verifiable recovery targets.",
     },
   },
 
@@ -224,10 +224,6 @@ export const siteContent = {
       "Technological and regulatory clarity: controlled thermochemical fragmentation defined distinctly for public understanding.",
       "Risk mitigation through integration: modular, replicable systems optimized for stable integration into municipal logistics chains.",
     ],
-    source: {
-      label: "Read partner applications",
-      href: "https://wpowertech.ro/applications",
-    },
   },
 
   markets: {

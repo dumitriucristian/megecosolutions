@@ -10,14 +10,16 @@ export function GalleryGrid({
 }: {
   items: GalleryItem[];
   className?: string;
-  columns?: 2 | 3 | 4;
+  columns?: 1 | 2 | 3 | 4;
 }) {
   const gridCols =
-    columns === 2
-      ? "md:grid-cols-2"
-      : columns === 4
-        ? "md:grid-cols-4"
-        : "md:grid-cols-3";
+    columns === 1
+      ? "grid-cols-1"
+      : columns === 2
+        ? "md:grid-cols-2"
+        : columns === 4
+          ? "md:grid-cols-4"
+          : "md:grid-cols-3";
 
   return (
     <div className={cn("grid gap-4 sm:gap-6", gridCols, className)}>

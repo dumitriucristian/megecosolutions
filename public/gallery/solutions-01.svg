@@ -1,28 +1,98 @@
 <svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
       <stop stop-color="#F8FAFC"/>
       <stop offset="1" stop-color="#E2E8F0"/>
     </linearGradient>
-    <radialGradient id="r" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(520 320) rotate(15) scale(760 520)">
-      <stop stop-color="#0EA5E9" stop-opacity="0.22"/>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 400) scale(700 500)">
+      <stop stop-color="#0EA5E9" stop-opacity="0.25"/>
       <stop offset="1" stop-color="#0EA5E9" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="r2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1160 560) rotate(-5) scale(760 520)">
-      <stop stop-color="#22C55E" stop-opacity="0.18"/>
+    <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1200 500) scale(700 500)">
+      <stop stop-color="#22C55E" stop-opacity="0.22"/>
       <stop offset="1" stop-color="#22C55E" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#0EA5E9"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
   </defs>
-  <rect width="1600" height="900" fill="url(#g)"/>
-  <rect width="1600" height="900" fill="url(#r)"/>
-  <rect width="1600" height="900" fill="url(#r2)"/>
-  <g opacity="0.18">
-    <path d="M220 720 C 420 540, 640 540, 820 720 S 1200 900, 1380 720" stroke="#0F172A" stroke-width="3" fill="none"/>
-    <path d="M260 720 C 420 580, 620 580, 780 720 S 1120 860, 1280 720" stroke="#0F172A" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#g1)"/>
+  <rect width="1600" height="900" fill="url(#g2)"/>
+
+  <!-- Waste input -->
+  <g transform="translate(160 280)">
+    <rect x="0" y="0" width="220" height="280" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+    <text x="110" y="36" fill="#64748B" font-family="system-ui, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Waste Input</text>
+    <rect x="30" y="60" width="70" height="50" rx="8" fill="#94A3B8" fill-opacity="0.3" stroke="#64748B" stroke-opacity="0.4" stroke-width="1.5"/>
+    <rect x="120" y="60" width="70" height="50" rx="8" fill="#94A3B8" fill-opacity="0.25" stroke="#64748B" stroke-opacity="0.4" stroke-width="1.5"/>
+    <rect x="30" y="130" width="70" height="50" rx="8" fill="#94A3B8" fill-opacity="0.2" stroke="#64748B" stroke-opacity="0.35" stroke-width="1.5"/>
+    <rect x="120" y="130" width="70" height="50" rx="8" fill="#94A3B8" fill-opacity="0.2" stroke="#64748B" stroke-opacity="0.35" stroke-width="1.5"/>
+    <rect x="55" y="200" width="110" height="50" rx="8" fill="#64748B" fill-opacity="0.15" stroke="#64748B" stroke-opacity="0.3" stroke-width="1.5"/>
   </g>
-  <g opacity="0.10">
-    <circle cx="1240" cy="260" r="120" stroke="#0F172A" stroke-width="2" fill="none"/>
-    <circle cx="1240" cy="260" r="70" stroke="#0F172A" stroke-width="2" fill="none"/>
+
+  <!-- Conversion process -->
+  <g transform="translate(480 240)">
+    <rect x="0" y="0" width="280" height="360" rx="20" fill="#0F172A" stroke="#0EA5E9" stroke-opacity="0.4" stroke-width="2"/>
+    <text x="140" y="40" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Conversion</text>
+    <circle cx="140" cy="160" r="70" stroke="#0EA5E9" stroke-opacity="0.3" stroke-width="3" fill="none"/>
+    <circle cx="140" cy="160" r="45" stroke="#22C55E" stroke-opacity="0.4" stroke-width="2" fill="none"/>
+    <circle cx="140" cy="160" r="20" fill="#0EA5E9" fill-opacity="0.4"/>
+    <path d="M140 90 L140 60 M140 230 L140 260 M70 160 L40 160 M210 160 L240 160" stroke="#0EA5E9" stroke-opacity="0.35" stroke-width="2"/>
+    <rect x="60" y="280" width="160" height="50" rx="8" fill="#1E293B" stroke="#22C55E" stroke-opacity="0.4" stroke-width="1.5"/>
+    <text x="140" y="312" fill="#22C55E" font-family="system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Processing</text>
+  </g>
+
+  <!-- Value outputs -->
+  <g transform="translate(860 240)">
+    <rect x="0" y="0" width="520" height="360" rx="20" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+    <text x="260" y="40" fill="#64748B" font-family="system-ui, sans-serif" font-size="15" font-weight="600" text-anchor="middle">Recovered Value</text>
+
+    <g transform="translate(40 70)">
+      <rect x="0" y="0" width="200" height="110" rx="12" fill="#F0F9FF" stroke="#0EA5E9" stroke-opacity="0.4" stroke-width="1.5"/>
+      <circle cx="50" cy="55" r="24" fill="#0EA5E9" fill-opacity="0.15"/>
+      <path d="M42 55 L48 48 L58 62" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <text x="90" y="48" fill="#0F172A" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Electricity</text>
+      <text x="90" y="70" fill="#64748B" font-family="system-ui, sans-serif" font-size="12">Grid / self-consumption</text>
+    </g>
+
+    <g transform="translate(280 70)">
+      <rect x="0" y="0" width="200" height="110" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-opacity="0.4" stroke-width="1.5"/>
+      <circle cx="50" cy="55" r="24" fill="#22C55E" fill-opacity="0.15"/>
+      <path d="M38 62 L50 42 L62 62" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text x="90" y="48" fill="#0F172A" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Heat &amp; Steam</text>
+      <text x="90" y="70" fill="#64748B" font-family="system-ui, sans-serif" font-size="12">Industrial applications</text>
+    </g>
+
+    <g transform="translate(40 210)">
+      <rect x="0" y="0" width="200" height="110" rx="12" fill="#F8FAFC" stroke="#64748B" stroke-opacity="0.35" stroke-width="1.5"/>
+      <circle cx="50" cy="55" r="24" fill="#64748B" fill-opacity="0.12"/>
+      <rect x="38" y="44" width="24" height="22" rx="3" stroke="#64748B" stroke-width="2" fill="none"/>
+      <text x="90" y="48" fill="#0F172A" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Metals</text>
+      <text x="90" y="70" fill="#64748B" font-family="system-ui, sans-serif" font-size="12">Secondary materials</text>
+    </g>
+
+    <g transform="translate(280 210)">
+      <rect x="0" y="0" width="200" height="110" rx="12" fill="#F0F9FF" stroke="#0EA5E9" stroke-opacity="0.3" stroke-width="1.5"/>
+      <circle cx="50" cy="55" r="24" fill="#0EA5E9" fill-opacity="0.1"/>
+      <path d="M38 55 H62 M50 43 V67" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="90" y="48" fill="#0F172A" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Landfill Reduction</text>
+      <text x="90" y="70" fill="#64748B" font-family="system-ui, sans-serif" font-size="12">Volume diversion</text>
+    </g>
+  </g>
+
+  <!-- Flow arrows -->
+  <g stroke="url(#flow)" stroke-opacity="0.6" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M390 420 H470"/>
+    <path d="M450 400 L470 420 L450 440" fill="#0EA5E9" fill-opacity="0.5" stroke="none"/>
+    <path d="M770 420 H850"/>
+    <path d="M830 400 L850 420 L830 440" fill="#22C55E" fill-opacity="0.5" stroke="none"/>
+  </g>
+
+  <!-- Circular economy ring -->
+  <g transform="translate(800 680)" opacity="0.25">
+    <path d="M0 0 A80 80 0 1 1 0.01 0" stroke="#22C55E" stroke-width="3" fill="none" stroke-dasharray="8 6"/>
+    <text x="0" y="6" fill="#22C55E" font-family="system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Circular economy</text>
   </g>
 </svg>
-

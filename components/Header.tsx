@@ -43,12 +43,6 @@ export function Header() {
               </Link>
             );
           })}
-          <Link
-            href="/contact"
-            className={cn(buttonVariants({ size: "sm" }), "ml-2")}
-          >
-            Consult
-          </Link>
         </nav>
 
         <button

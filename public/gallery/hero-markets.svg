@@ -1,0 +1,34 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(300 400) scale(700 500)">
+      <stop stop-color="#38BDF8" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1300 300) scale(800 600)">
+      <stop stop-color="#22C55E" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#g1)"/>
+  <rect width="1600" height="900" fill="url(#g2)"/>
+  <g opacity="0.12" stroke="white" stroke-width="1">
+    <path d="M200 200 H1400"/><path d="M200 300 H1400"/><path d="M200 400 H1400"/><path d="M200 500 H1400"/><path d="M200 600 H1400"/><path d="M200 700 H1400"/>
+    <path d="M400 100 V800"/><path d="M600 100 V800"/><path d="M800 100 V800"/><path d="M1000 100 V800"/><path d="M1200 100 V800"/>
+  </g>
+  <g opacity="0.35" stroke="#38BDF8" stroke-width="2" fill="none">
+    <rect x="240" y="280" width="200" height="140" rx="12"/>
+    <rect x="500" y="240" width="200" height="180" rx="12"/>
+    <rect x="760" y="300" width="200" height="120" rx="12"/>
+    <rect x="1020" y="260" width="200" height="160" rx="12"/>
+    <path d="M440 350 H500"/><path d="M700 330 H760"/><path d="M960 360 H1020"/>
+  </g>
+  <circle cx="340" cy="350" r="20" fill="#38BDF8" fill-opacity="0.3"/>
+  <circle cx="600" cy="330" r="20" fill="#22C55E" fill-opacity="0.3"/>
+  <circle cx="860" cy="360" r="20" fill="#38BDF8" fill-opacity="0.25"/>
+  <circle cx="1120" cy="340" r="20" fill="#A855F7" fill-opacity="0.25"/>
+</svg>
