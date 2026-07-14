@@ -24,6 +24,16 @@ export default function MarketsPage() {
           Engagement models for B2G, institutional operators, and strategic stakeholders across the
           waste value chain.
         </p>
+        <ul className="mt-6 max-w-3xl space-y-2 text-pretty text-base leading-7 text-white/85">
+          {markets.highlights.map((item) => (
+            <li key={item} className="flex gap-3">
+              <span className="text-meg-green" aria-hidden="true">
+                •
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
       </PageHero>
 
       <Section tone="tint">

@@ -26,6 +26,8 @@ export const siteContent = {
       headline: "We Transform Waste Into Energy, Resources, and Investment Opportunities.",
       subheadline:
         "Advanced circular economy engineering — proven European technology for municipal waste management and energy resilience.",
+      regionalRole:
+        "Exclusive representative in Bolivia and Latin America for leading technologies that transform waste into energy and valuable resources.",
       supporting:
         "MEG EcoSolutions designs and delivers technical solutions that reduce landfill dependency, improve regulatory performance, and convert suitable waste streams into measurable recovery and usable energy. We operate as a technical authority for public-sector stakeholders, with verifiable parameters, clear documentation, and modular systems designed to integrate into existing municipal logistics.",
       ctas: [
@@ -228,6 +230,12 @@ export const siteContent = {
 
   markets: {
     title: "Solutions Tailored to Every Industry",
+    highlights: [
+      "Exclusive representation of European technologies.",
+      "Technical and financial project assessment.",
+      "Compliance with international standards.",
+      "Full support from engineering to commissioning.",
+    ],
     items: [
       {
         title: "Public Sector & Municipal Governments",
@@ -261,6 +269,12 @@ export const siteContent = {
     title: "Viable Projects. Protected Investments. Demonstrable Returns.",
     body:
       "MEG EcoSolutions structures complete, finance-ready projects designed to minimize risk and maximize long-term performance — from feasibility to operation and monitoring.",
+    overview:
+      "We develop projects through private investment and strategic partnerships. We prepare technical and financial studies together with investment recovery models to ensure long-term project viability.",
+    cta: {
+      label: "Request Corporate Presentation",
+      href: "/contact",
+    },
     phases: [
       {
         title: "Phase 1 — Assessment & Feasibility",

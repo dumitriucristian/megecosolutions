@@ -28,6 +28,10 @@ export default function Home() {
           {siteContent.home.hero.subheadline}
         </p>
 
+        <p className="mt-5 max-w-3xl text-pretty text-base font-medium leading-7 text-meg-cyan sm:text-lg">
+          {siteContent.home.hero.regionalRole}
+        </p>
+
         <p className="mt-6 max-w-3xl text-pretty leading-7 text-slate-200/75">
           {siteContent.home.hero.supporting}
         </p>
