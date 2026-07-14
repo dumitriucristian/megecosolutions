@@ -1,31 +1,36 @@
 import Link from "next/link";
 
+import { Logo } from "@/components/Logo";
 import { siteContent } from "@/content/siteContent";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-slate-200 bg-white">
+    <footer className="border-t border-white/10 bg-slate-950 text-white">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-12 md:grid-cols-3">
-        <div className="space-y-3">
-          <div className="text-sm font-semibold text-slate-950">{siteContent.site.name}</div>
-          <div className="text-sm leading-6 text-slate-600">
-            Technical solutions for municipal waste management and energy resilience.
-          </div>
-          <div className="text-sm text-slate-600">
-            <a className="font-semibold text-slate-950 hover:underline" href={`mailto:${siteContent.site.primaryEmail}`}>
+        <div className="space-y-4">
+          <Logo imageClassName="h-12" />
+          <p className="text-sm leading-6 text-white/65">
+            Waste to Energy Solutions — technical infrastructure for municipal waste management and
+            energy resilience.
+          </p>
+          <div className="text-sm text-white/65">
+            <a
+              className="font-semibold text-meg-cyan hover:text-white hover:underline"
+              href={`mailto:${siteContent.site.primaryEmail}`}
+            >
               {siteContent.site.primaryEmail}
             </a>
           </div>
         </div>
 
         <div className="space-y-3">
-          <div className="text-sm font-semibold text-slate-950">Pages</div>
-          <ul className="space-y-2 text-sm text-slate-600">
+          <div className="text-sm font-semibold tracking-wide text-white">Pages</div>
+          <ul className="space-y-2 text-sm text-white/65">
             {siteContent.nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-slate-950 hover:underline">
+                <Link href={item.href} className="hover:text-meg-cyan hover:underline">
                   {item.label}
                 </Link>
               </li>
@@ -34,11 +39,11 @@ export function Footer() {
         </div>
 
         <div className="space-y-3">
-          <div className="text-sm font-semibold text-slate-950">Partner</div>
-          <div className="text-sm leading-6 text-slate-600">
+          <div className="text-sm font-semibold tracking-wide text-white">Partner</div>
+          <div className="text-sm leading-6 text-white/65">
             Main partner:{" "}
             <a
-              className="font-semibold text-slate-950 hover:underline"
+              className="font-semibold text-meg-green hover:text-white hover:underline"
               href={siteContent.site.partner.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -48,7 +53,7 @@ export function Footer() {
           </div>
           <div className="text-sm">
             <a
-              className="text-slate-600 hover:text-slate-950 hover:underline"
+              className="text-white/65 hover:text-meg-cyan hover:underline"
               href={siteContent.site.partner.applicationsUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -59,14 +64,16 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-slate-200">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
-          <div>© {year} {siteContent.site.name}. All rights reserved.</div>
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-white/45 md:flex-row md:items-center md:justify-between">
+          <div>
+            © {year} {siteContent.site.name}. All rights reserved.
+          </div>
           <div className="flex gap-4">
-            <a className="hover:text-slate-950 hover:underline" href="/sitemap.xml">
+            <a className="hover:text-meg-cyan hover:underline" href="/sitemap.xml">
               Sitemap
             </a>
-            <a className="hover:text-slate-950 hover:underline" href="/robots.txt">
+            <a className="hover:text-meg-cyan hover:underline" href="/robots.txt">
               Robots
             </a>
           </div>
@@ -75,4 +82,3 @@ export function Footer() {
     </footer>
   );
 }
-

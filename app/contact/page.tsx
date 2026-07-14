@@ -46,6 +46,21 @@ export default function ContactPage() {
                   {siteContent.site.primaryEmail}
                 </a>
               </div>
+
+              <div className="mt-5 border border-slate-200 bg-slate-50 px-4 py-3">
+                <div className="text-xs font-semibold text-slate-500">Company</div>
+                <p className="mt-1 text-sm font-semibold text-slate-950">{contact.company.name}</p>
+                <address className="mt-2 space-y-0.5 text-sm not-italic leading-6 text-slate-600">
+                  {contact.company.address.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+                <p className="mt-3 text-sm text-slate-600">
+                  {contact.company.registrationLabel} {contact.company.registrationNumber}
+                </p>
+              </div>
             </aside>
           </div>
         </Container>

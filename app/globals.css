@@ -7,9 +7,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-exo), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-exo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --color-meg-green: var(--meg-green);
+  --color-meg-green-dark: var(--meg-green-dark);
+  --color-meg-blue: var(--meg-blue);
+  --color-meg-blue-dark: var(--meg-blue-dark);
+  --color-meg-cyan: var(--meg-cyan);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -53,20 +58,25 @@ body {
 }
 
 :root {
+  --meg-green: #4caf50;
+  --meg-green-dark: #2e7d32;
+  --meg-blue: #2196f3;
+  --meg-blue-dark: #1565c0;
+  --meg-cyan: #00bcd4;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.18 0.02 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.18 0.02 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.18 0.02 250);
+  --primary: #1565c0;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.97 0.01 145);
+  --secondary-foreground: oklch(0.25 0.06 145);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --muted-foreground: oklch(0.5 0.02 250);
+  --accent: oklch(0.95 0.03 145);
+  --accent-foreground: oklch(0.28 0.08 145);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -130,5 +140,31 @@ body {
   }
   html {
     @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .text-brand-gradient {
+    background: linear-gradient(90deg, var(--meg-green) 0%, var(--meg-cyan) 45%, var(--meg-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-brand-gradient {
+    background: linear-gradient(90deg, var(--meg-green-dark) 0%, var(--meg-blue-dark) 100%);
+  }
+
+  .border-brand-gradient {
+    border-image: linear-gradient(90deg, var(--meg-green), var(--meg-blue)) 1;
   }
 }

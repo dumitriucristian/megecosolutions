@@ -305,6 +305,12 @@ export const siteContent = {
       "Whether you represent a municipal government evaluating alternatives to landfill, an institutional operator planning resilience upgrades, or an investor exploring circular economy opportunities — we are ready to listen, analyze, and propose.",
       "All initial inquiries are treated with absolute confidentiality.",
     ],
+    company: {
+      name: "MEG QUALITY GROUP AB",
+      address: ["ÖSTERVÄGEN 23", "196 41 KUNGSÄNGEN"],
+      registrationLabel: "No. de org.",
+      registrationNumber: "559587-1467",
+    },
     fields: [
       { name: "fullName", label: "Full Name", required: true },
       { name: "organization", label: "Organization / Company", required: true },

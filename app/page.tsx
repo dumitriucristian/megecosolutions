@@ -33,22 +33,22 @@ export default function Home() {
         </p>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href={siteContent.home.hero.ctas[0].href}
-            className={cn(
-              buttonVariants({ variant: "secondary", size: "lg" }),
-              "h-11 bg-white text-slate-950 hover:bg-white/90",
-            )}
-          >
-            {siteContent.home.hero.ctas[0].label}
-          </Link>
-          <Link
-            href={siteContent.home.hero.ctas[1].href}
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-11 border-white/15 bg-white/5 text-white hover:bg-white/10",
-            )}
-          >
+            <Link
+              href={siteContent.home.hero.ctas[0].href}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "h-11 bg-brand-gradient text-white hover:opacity-90",
+              )}
+            >
+              {siteContent.home.hero.ctas[0].label}
+            </Link>
+            <Link
+              href={siteContent.home.hero.ctas[1].href}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "h-11 border-meg-cyan/40 bg-white/5 text-white hover:border-meg-green/60 hover:bg-white/10",
+              )}
+            >
             {siteContent.home.hero.ctas[1].label}
           </Link>
         </div>
