@@ -1,18 +1,36 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { Container } from "@/components/Container";
 import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
-import { siteContent } from "@/content/siteContent";
+import { getSiteContent } from "@/content";
+import { isLocale, type Locale } from "@/lib/i18n";
 import { pageHeroImages } from "@/lib/media";
 
-export const metadata: Metadata = {
-  title: "Markets",
-  description: "Solutions tailored to public-sector, healthcare, industrial, and corporate needs.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) return {};
+  const content = getSiteContent(raw);
+  return {
+    title: content.pages.markets.title,
+    description: content.pages.markets.description,
+  };
+}
 
-export default function MarketsPage() {
-  const { markets } = siteContent;
+export default async function MarketsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) notFound();
+  const locale = raw as Locale;
+  const { markets, ui } = getSiteContent(locale);
 
   return (
     <>
@@ -20,10 +38,7 @@ export default function MarketsPage() {
         <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
           {markets.title}
         </h1>
-        <p className="mt-6 max-w-3xl text-pretty leading-7 text-white/75">
-          Engagement models for B2G, institutional operators, and strategic stakeholders across the
-          waste value chain.
-        </p>
+        <p className="mt-6 max-w-3xl text-pretty leading-7 text-white/75">{ui.marketsIntro}</p>
         <ul className="mt-6 max-w-3xl space-y-2 text-pretty text-base leading-7 text-white/85">
           {markets.highlights.map((item) => (
             <li key={item} className="flex gap-3">

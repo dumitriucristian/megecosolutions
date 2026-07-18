@@ -1,18 +1,36 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { Container } from "@/components/Container";
 import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
-import { siteContent } from "@/content/siteContent";
+import { getSiteContent } from "@/content";
+import { isLocale, type Locale } from "@/lib/i18n";
 import { pageHeroImages } from "@/lib/media";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: "Purpose-driven engineering and transparent delivery for B2G waste infrastructure.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) return {};
+  const content = getSiteContent(raw);
+  return {
+    title: content.pages.about.title,
+    description: content.pages.about.description,
+  };
+}
 
-export default function AboutPage() {
-  const { about } = siteContent;
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) notFound();
+  const locale = raw as Locale;
+  const { about, ui } = getSiteContent(locale);
 
   return (
     <>
@@ -30,7 +48,7 @@ export default function AboutPage() {
       <Section tone="tint">
         <Container className="py-14 sm:py-18">
           <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
-            Institutional pillars
+            {ui.aboutPillarsTitle}
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             {about.pillars.map((p) => (

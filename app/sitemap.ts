@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 
-import { siteContent } from "@/content/siteContent";
+import { siteIdentity } from "@/content";
+import { locales } from "@/lib/i18n";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = `https://${siteContent.site.domain}`;
+  const base = `https://${siteIdentity.domain}`;
   const now = new Date();
 
   const routes = [
-    "/",
+    "",
     "/about",
     "/solutions",
     "/applications",
@@ -16,11 +17,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
   ];
 
-  return routes.map((path) => ({
-    url: `${base}${path}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: path === "/" ? 1 : 0.7,
-  }));
+  return locales.flatMap((locale) =>
+    routes.map((path) => ({
+      url: `${base}/${locale}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: path === "" ? 1 : 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${base}/${l}${path}`]),
+        ),
+      },
+    })),
+  );
 }
-

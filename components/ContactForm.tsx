@@ -15,7 +15,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { siteContent } from "@/content/siteContent";
+import { getSiteContent } from "@/content";
+import type { Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type FormState = {
@@ -37,12 +38,28 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export function ContactForm({ className }: { className?: string }) {
+function fieldLabel(
+  fields: ReturnType<typeof getSiteContent>["contact"]["fields"],
+  name: string,
+) {
+  return fields.find((f) => f.name === name)?.label ?? name;
+}
+
+export function ContactForm({
+  locale,
+  className,
+}: {
+  locale: Locale;
+  className?: string;
+}) {
+  const content = useMemo(() => getSiteContent(locale), [locale]);
+  const { contact, ui } = content;
+
   const inquiryOptions: ReadonlyArray<string> = useMemo(() => {
-    const field = siteContent.contact.fields.find((f) => f.name === "inquiryType");
+    const field = contact.fields.find((f) => f.name === "inquiryType");
     if (!field) return [];
     return "options" in field ? field.options : [];
-  }, []);
+  }, [contact.fields]);
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -55,7 +72,7 @@ export function ContactForm({ className }: { className?: string }) {
     country: "",
     email: "",
     phone: "",
-    inquiryType: inquiryOptions[0] ?? "Public project",
+    inquiryType: inquiryOptions[0] ?? "",
     message: "",
     requestPresentation: false,
     requestNda: false,
@@ -63,12 +80,12 @@ export function ContactForm({ className }: { className?: string }) {
 
   function validate(next: FormState): FormErrors {
     const e: FormErrors = {};
-    if (!next.fullName.trim()) e.fullName = "Required";
-    if (!next.country.trim()) e.country = "Required";
-    if (!next.email.trim()) e.email = "Required";
-    else if (!isValidEmail(next.email)) e.email = "Enter a valid email";
-    if (!next.inquiryType.trim()) e.inquiryType = "Required";
-    if (!next.message.trim()) e.message = "Required";
+    if (!next.fullName.trim()) e.fullName = ui.formRequired;
+    if (!next.country.trim()) e.country = ui.formRequired;
+    if (!next.email.trim()) e.email = ui.formRequired;
+    else if (!isValidEmail(next.email)) e.email = ui.formInvalidEmail;
+    if (!next.inquiryType.trim()) e.inquiryType = ui.formRequired;
+    if (!next.message.trim()) e.message = ui.formRequired;
     return e;
   }
 
@@ -91,16 +108,14 @@ export function ContactForm({ className }: { className?: string }) {
         const data = (await res.json().catch(() => null)) as { error?: string } | null;
         setSubmitError(
           data?.error ||
-            `Something went wrong. Please email ${siteContent.site.primaryEmail} directly.`,
+            ui.formErrorGeneric.replace("{email}", content.site.primaryEmail),
         );
         return;
       }
 
       setSubmitted(true);
     } catch {
-      setSubmitError(
-        `Unable to reach the server. Please email ${siteContent.site.primaryEmail} directly.`,
-      );
+      setSubmitError(ui.formErrorNetwork.replace("{email}", content.site.primaryEmail));
     } finally {
       setSubmitting(false);
     }
@@ -110,15 +125,15 @@ export function ContactForm({ className }: { className?: string }) {
     return (
       <div className={cn("border border-slate-200 bg-white p-8", className)}>
         <h2 className="text-xl font-semibold tracking-tight text-slate-950">
-          Thanks — we’ve received your inquiry.
+          {ui.formSuccessTitle}
         </h2>
-        <p className="mt-3 text-sm leading-6 text-slate-600">
-          Our team will review your message and respond promptly. All inquiries are treated with
-          absolute confidentiality.
-        </p>
+        <p className="mt-3 text-sm leading-6 text-slate-600">{ui.formSuccessBody}</p>
       </div>
     );
   }
+
+  const presentationLabel = fieldLabel(contact.fields, "requestPresentation");
+  const ndaLabel = fieldLabel(contact.fields, "requestNda");
 
   return (
     <form
@@ -127,52 +142,53 @@ export function ContactForm({ className }: { className?: string }) {
     >
       <div className="grid gap-5 md:grid-cols-2">
         <Field
-          label="Full Name"
+          label={fieldLabel(contact.fields, "fullName")}
           value={state.fullName}
           onChange={(v) => setState((s) => ({ ...s, fullName: v }))}
           error={errors.fullName}
         />
         <Field
-          label="Organization / Company (optional)"
+          label={fieldLabel(contact.fields, "organization")}
           value={state.organization}
           onChange={(v) => setState((s) => ({ ...s, organization: v }))}
           error={errors.organization}
         />
         <Field
-          label="Position / Title (optional)"
+          label={fieldLabel(contact.fields, "position")}
           value={state.position}
           onChange={(v) => setState((s) => ({ ...s, position: v }))}
           error={errors.position}
         />
         <Field
-          label="Country"
+          label={fieldLabel(contact.fields, "country")}
           value={state.country}
           onChange={(v) => setState((s) => ({ ...s, country: v }))}
           error={errors.country}
         />
         <Field
-          label="Corporate Email"
+          label={fieldLabel(contact.fields, "email")}
           type="email"
           value={state.email}
           onChange={(v) => setState((s) => ({ ...s, email: v }))}
           error={errors.email}
         />
         <Field
-          label="Phone (optional)"
+          label={fieldLabel(contact.fields, "phone")}
           value={state.phone}
           onChange={(v) => setState((s) => ({ ...s, phone: v }))}
           error={errors.phone}
         />
         <SelectField
-          label="Type of Inquiry"
+          label={fieldLabel(contact.fields, "inquiryType")}
           value={state.inquiryType}
           options={inquiryOptions}
           onChange={(v) => setState((s) => ({ ...s, inquiryType: v }))}
           error={errors.inquiryType}
+          placeholder={ui.formSelectPlaceholder}
           className="md:col-span-2"
         />
         <TextAreaField
-          label="Message"
+          label={fieldLabel(contact.fields, "message")}
           value={state.message}
           onChange={(v) => setState((s) => ({ ...s, message: v }))}
           error={errors.message}
@@ -184,12 +200,12 @@ export function ContactForm({ className }: { className?: string }) {
         <Checkbox
           checked={state.requestPresentation}
           onChange={(v) => setState((s) => ({ ...s, requestPresentation: v }))}
-          label="I would like to receive MEG EcoSolutions’ Corporate Presentation"
+          label={presentationLabel}
         />
         <Checkbox
           checked={state.requestNda}
           onChange={(v) => setState((s) => ({ ...s, requestNda: v }))}
-          label="I would like to sign a Non-Disclosure Agreement (NDA) prior to the meeting"
+          label={ndaLabel}
         />
       </div>
 
@@ -197,20 +213,18 @@ export function ContactForm({ className }: { className?: string }) {
         <p className="mt-6 text-sm font-medium text-rose-600" role="alert">
           {submitError}{" "}
           <a
-            href={`mailto:${siteContent.site.primaryEmail}`}
+            href={`mailto:${content.site.primaryEmail}`}
             className="underline underline-offset-2 hover:text-rose-700"
           >
-            Email {siteContent.site.primaryEmail}
+            {content.site.primaryEmail}
           </a>
         </p>
       ) : null}
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs leading-5 text-slate-500">
-          All initial inquiries are treated with absolute confidentiality.
-        </p>
+        <p className="text-xs leading-5 text-slate-500">{ui.formConfidentiality}</p>
         <Button type="submit" size="lg" className="h-11" disabled={submitting}>
-          {submitting ? "Sending…" : "Submit inquiry"}
+          {submitting ? ui.formSending : ui.formSubmit}
         </Button>
       </div>
     </form>
@@ -230,7 +244,7 @@ function Field({
   error?: string;
   type?: string;
 }) {
-  const id = `field-${label.replace(/\\s+/g, "-").toLowerCase()}`;
+  const id = `field-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
     <div className="block">
       <div className="flex items-center justify-between">
@@ -262,6 +276,7 @@ function SelectField({
   options,
   onChange,
   error,
+  placeholder,
   className,
 }: {
   label: string;
@@ -269,6 +284,7 @@ function SelectField({
   options: ReadonlyArray<string>;
   onChange: (next: string) => void;
   error?: string;
+  placeholder: string;
   className?: string;
 }) {
   const id = `field-${label.replace(/\s+/g, "-").toLowerCase()}`;
@@ -286,10 +302,12 @@ function SelectField({
             id={id}
             className={cn(
               "h-11 w-full px-4",
-              error ? "border-rose-300 focus-visible:border-rose-400 focus-visible:ring-rose-100" : "",
+              error
+                ? "border-rose-300 focus-visible:border-rose-400 focus-visible:ring-rose-100"
+                : "",
             )}
           >
-            <SelectValue placeholder="Select an inquiry type" />
+            <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -369,4 +387,3 @@ function Checkbox({
     </div>
   );
 }
-

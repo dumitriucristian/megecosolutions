@@ -1,5 +1,7 @@
 MEG EcoSolutions marketing website (Next.js 16.2.10 + TypeScript).
 
+Bilingual: **English** (`/en/...`) and **Spanish** (`/es/...`). Language can be switched from the header.
+
 ## Getting Started
 
 ### Run locally (Node)
@@ -11,6 +13,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visitors are redirected to `/en` or `/es` based on browser language.
 
 ### Run locally (Docker)
 

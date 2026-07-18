@@ -1,17 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { localizedPath, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export function Logo({
+  locale = "en",
   className,
   imageClassName,
 }: {
+  locale?: Locale;
   className?: string;
   imageClassName?: string;
 }) {
   return (
-    <Link href="/" className={cn("inline-flex shrink-0 items-center", className)}>
+    <Link
+      href={localizedPath(locale, "/")}
+      className={cn("inline-flex shrink-0 items-center", className)}
+    >
       <Image
         src="/meg-ecosolutions-logo.png"
         alt="MEG EcoSolutions — Waste to Energy Solutions"

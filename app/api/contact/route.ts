@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { siteContent } from "@/content/siteContent";
+import { siteIdentity } from "@/content";
 
 type ContactPayload = {
   fullName: string;
@@ -86,11 +86,11 @@ export async function POST(request: Request) {
   }
 
   const toEmail =
-    process.env.CONTACT_TO_EMAIL?.trim() || siteContent.site.primaryEmail;
+    process.env.CONTACT_TO_EMAIL?.trim() || siteIdentity.primaryEmail;
   const senderEmail =
-    process.env.BREVO_SENDER_EMAIL?.trim() || siteContent.site.primaryEmail;
+    process.env.BREVO_SENDER_EMAIL?.trim() || siteIdentity.primaryEmail;
   const senderName =
-    process.env.BREVO_SENDER_NAME?.trim() || siteContent.site.name;
+    process.env.BREVO_SENDER_NAME?.trim() || siteIdentity.name;
   const apiBase = (process.env.BREVO_API_URL?.trim() || "https://api.brevo.com/v3").replace(
     /\/$/,
     "",
@@ -142,7 +142,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       sender: { name: senderName, email: senderEmail },
-      to: [{ email: toEmail, name: siteContent.site.name }],
+      to: [{ email: toEmail, name: siteIdentity.name }],
       replyTo: { email: payload.email, name: payload.fullName },
       subject,
       textContent,
