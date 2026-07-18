@@ -321,14 +321,34 @@ export const siteContent = {
     ],
     company: {
       name: "MEG QUALITY GROUP AB",
-      address: ["ÖSTERVÄGEN 23", "196 41 KUNGSÄNGEN"],
+      address: ["ÖSTERVÄGEN 23", "196 41 KUNGSÄNGEN", "Norway"],
       registrationLabel: "No. de org.",
       registrationNumber: "559587-1467",
     },
+    people: [
+      {
+        name: "Marius-Constantin Giuvelic",
+        role: "Global Representative",
+        phone: "+46 73 598 74 03",
+        phoneHref: "tel:+46735987403",
+      },
+      {
+        name: "Daniel Luis Aguirre Tellez",
+        role: "Latin America Representative",
+        phone: "+46 73 543 27 11",
+        phoneHref: "tel:+46735432711",
+      },
+      {
+        name: "Miguel Fernando Calvo Mercado",
+        role: "Latin America Representative",
+        phone: "+591 718 78205",
+        phoneHref: "tel:+59171878205",
+      },
+    ],
     fields: [
       { name: "fullName", label: "Full Name", required: true },
-      { name: "organization", label: "Organization / Company", required: true },
-      { name: "position", label: "Position / Title", required: true },
+      { name: "organization", label: "Organization / Company (optional)", required: false },
+      { name: "position", label: "Position / Title (optional)", required: false },
       { name: "country", label: "Country", required: true },
       { name: "email", label: "Corporate Email", required: true },
       { name: "phone", label: "Phone (optional)", required: false },

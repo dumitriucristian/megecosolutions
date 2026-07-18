@@ -48,6 +48,24 @@ export default function ContactPage() {
               </div>
 
               <div className="mt-5 border border-slate-200 bg-slate-50 px-4 py-3">
+                <div className="text-xs font-semibold text-slate-500">Team</div>
+                <ul className="mt-3 space-y-4">
+                  {contact.people.map((person) => (
+                    <li key={person.name}>
+                      <p className="text-sm font-semibold text-slate-950">{person.name}</p>
+                      <p className="mt-0.5 text-xs font-medium text-slate-500">{person.role}</p>
+                      <a
+                        className="mt-1 block text-sm text-slate-600 hover:text-slate-950 hover:underline"
+                        href={person.phoneHref}
+                      >
+                        {person.phone}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-5 border border-slate-200 bg-slate-50 px-4 py-3">
                 <div className="text-xs font-semibold text-slate-500">Company</div>
                 <p className="mt-1 text-sm font-semibold text-slate-950">{contact.company.name}</p>
                 <address className="mt-2 space-y-0.5 text-sm not-italic leading-6 text-slate-600">

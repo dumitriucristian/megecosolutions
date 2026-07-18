@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Checkbox as ShadcnCheckbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,6 +45,8 @@ export function ContactForm({ className }: { className?: string }) {
   }, []);
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
   const [state, setState] = useState<FormState>({
     fullName: "",
@@ -62,14 +64,46 @@ export function ContactForm({ className }: { className?: string }) {
   function validate(next: FormState): FormErrors {
     const e: FormErrors = {};
     if (!next.fullName.trim()) e.fullName = "Required";
-    if (!next.organization.trim()) e.organization = "Required";
-    if (!next.position.trim()) e.position = "Required";
     if (!next.country.trim()) e.country = "Required";
     if (!next.email.trim()) e.email = "Required";
     else if (!isValidEmail(next.email)) e.email = "Enter a valid email";
     if (!next.inquiryType.trim()) e.inquiryType = "Required";
     if (!next.message.trim()) e.message = "Required";
     return e;
+  }
+
+  async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
+    ev.preventDefault();
+    const e = validate(state);
+    setErrors(e);
+    setSubmitError(null);
+    if (Object.keys(e).length > 0) return;
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state),
+      });
+
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        setSubmitError(
+          data?.error ||
+            `Something went wrong. Please email ${siteContent.site.primaryEmail} directly.`,
+        );
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setSubmitError(
+        `Unable to reach the server. Please email ${siteContent.site.primaryEmail} directly.`,
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -79,17 +113,9 @@ export function ContactForm({ className }: { className?: string }) {
           Thanks — we’ve received your inquiry.
         </h2>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          For confidentiality, this demo form does not send data to a server yet. Please email us
-          directly and we’ll respond promptly.
+          Our team will review your message and respond promptly. All inquiries are treated with
+          absolute confidentiality.
         </p>
-        <div className="mt-6">
-          <a
-            href={`mailto:${siteContent.site.primaryEmail}`}
-            className={cn(buttonVariants({ size: "lg" }), "h-11")}
-          >
-            Email {siteContent.site.primaryEmail}
-          </a>
-        </div>
       </div>
     );
   }
@@ -97,12 +123,7 @@ export function ContactForm({ className }: { className?: string }) {
   return (
     <form
       className={cn("border border-slate-200 bg-white p-8", className)}
-      onSubmit={(ev) => {
-        ev.preventDefault();
-        const e = validate(state);
-        setErrors(e);
-        if (Object.keys(e).length === 0) setSubmitted(true);
-      }}
+      onSubmit={handleSubmit}
     >
       <div className="grid gap-5 md:grid-cols-2">
         <Field
@@ -112,13 +133,13 @@ export function ContactForm({ className }: { className?: string }) {
           error={errors.fullName}
         />
         <Field
-          label="Organization / Company"
+          label="Organization / Company (optional)"
           value={state.organization}
           onChange={(v) => setState((s) => ({ ...s, organization: v }))}
           error={errors.organization}
         />
         <Field
-          label="Position / Title"
+          label="Position / Title (optional)"
           value={state.position}
           onChange={(v) => setState((s) => ({ ...s, position: v }))}
           error={errors.position}
@@ -172,12 +193,24 @@ export function ContactForm({ className }: { className?: string }) {
         />
       </div>
 
+      {submitError ? (
+        <p className="mt-6 text-sm font-medium text-rose-600" role="alert">
+          {submitError}{" "}
+          <a
+            href={`mailto:${siteContent.site.primaryEmail}`}
+            className="underline underline-offset-2 hover:text-rose-700"
+          >
+            Email {siteContent.site.primaryEmail}
+          </a>
+        </p>
+      ) : null}
+
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs leading-5 text-slate-500">
           All initial inquiries are treated with absolute confidentiality.
         </p>
-        <Button type="submit" size="lg" className="h-11">
-          Submit inquiry
+        <Button type="submit" size="lg" className="h-11" disabled={submitting}>
+          {submitting ? "Sending…" : "Submit inquiry"}
         </Button>
       </div>
     </form>
