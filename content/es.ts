@@ -398,7 +398,7 @@ export const siteContentEs = {
     ],
     company: {
       name: "MEG QUALITY GROUP AB",
-      address: ["ÖSTERVÄGEN 23", "196 41 KUNGSÄNGEN", "Noruega"],
+      address: ["ÖSTERVÄGEN 23", "196 41 KUNGSÄNGEN", "Suecia"],
       registrationLabel: "No. de org.",
       registrationNumber: "559587-1467",
     },
